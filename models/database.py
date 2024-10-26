@@ -113,6 +113,16 @@ class AbstractClass:
     async def all(cls):
         return (await db.execute(select(cls))).scalars()
 
+    @classmethod
+    async def run_query(cls, query):
+        result = await db.execute(query)
+        return result.scalars().all()
+
+    @classmethod
+    async def query_count(cls, query):
+        result = await db.execute(query)
+        return result.scalar()
+
 
 class BaseModel(Base, AbstractClass):
     __abstract__ = True
