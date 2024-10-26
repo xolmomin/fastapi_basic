@@ -1,0 +1,5 @@
+Task
+1. faker orqali 100ta product qoshish
+2. product listni pagination qilish
+3. productni name boyicha search qilish
+4. productni price boyicha filter qilish (from_price, to_price)
