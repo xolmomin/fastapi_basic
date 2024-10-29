@@ -5,3 +5,8 @@ Task
 4. productni price boyicha filter qilish (from_price, to_price)
 5. background tasks (pochtaga yuborish)
 6. celery (pochtaga yuborish)
+
+
+Task
+celery ni bolaklash
+celery ichida async code ishlatish

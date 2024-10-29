@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from typing import Optional
 
 from fastapi import FastAPI
 from starlette.requests import Request
@@ -29,9 +30,19 @@ async def read_file(data: str):
     return {"file_path": data, "msg": "bu boshqa"}
 
 
-@app.get('/')
-async def root():
-    return {"message": "Hello World"}
+from pydantic import BaseModel
+
+
+class Item(BaseModel):
+    name: str
+    description: str | None = None
+    price: Optional[float] = None
+    tax: float | None = None
+
+
+@app.post('/')
+async def root(item: Item):
+    return item
 
 
 @app.get("/hello/{name}")

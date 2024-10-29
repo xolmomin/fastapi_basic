@@ -31,6 +31,7 @@ class Configuration:
     """All in one configuration's class"""
     db = DatabaseConfig()
     SECRET_KEY: str = os.getenv('SECRET_KEY')
+    BROKER_URL: str = os.getenv('BROKER_URL')
 
 
 conf = Configuration()

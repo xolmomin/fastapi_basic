@@ -97,15 +97,3 @@ async def generate_products(request: Request):
 
     end = time.time()
     return {"message": "OK", "spend_time": int(end - start)}
-
-
-'''
-Product.objects.all()
-
-Product.objects.get(id=2)
-Product.objects.get(name='name')
-
-Product.get(Product.id==2)
-Product.get(Product.slug=='name')
-
-'''
