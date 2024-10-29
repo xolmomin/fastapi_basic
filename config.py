@@ -13,6 +13,15 @@ class BaseConfig:
 
 
 @dataclass
+class SmtpConfig(BaseConfig):
+    """Mail connection variables"""
+    SMTP_USERNAME: str = os.getenv('SMTP_USERNAME')
+    SMTP_SERVER: str = os.getenv('SMTP_SERVER')
+    SMTP_PORT: int = int(os.getenv('SMTP_PORT', 1111))
+    SMTP_PASSWORD: str = os.getenv('SMTP_PASSWORD')
+
+
+@dataclass
 class DatabaseConfig(BaseConfig):
     """Database connection variables"""
     NAME: str = os.getenv('DB_NAME')
@@ -30,6 +39,7 @@ class DatabaseConfig(BaseConfig):
 class Configuration:
     """All in one configuration's class"""
     db = DatabaseConfig()
+    smtp = SmtpConfig()
     SECRET_KEY: str = os.getenv('SECRET_KEY')
     BROKER_URL: str = os.getenv('BROKER_URL')
 

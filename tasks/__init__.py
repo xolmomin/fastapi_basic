@@ -1,1 +1,1 @@
-from tasks.send_email123 import new_task
+from tasks.send_mail import send_email
