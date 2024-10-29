@@ -14,8 +14,7 @@ shop_router = APIRouter()
 
 @shop_router.get('/products/{_id}', response_model=ResponseProduct)
 async def get_product(_id: int):
-    product = await get_object_or_404(Product, _id)
-    return product
+    return await get_object_or_404(Product, _id)
 
 
 @shop_router.post('/products')
