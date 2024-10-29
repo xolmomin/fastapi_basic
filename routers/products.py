@@ -19,7 +19,7 @@ async def get_product(_id: int):
 
 @shop_router.post('/products')
 async def create_product(product: CreateProduct) -> ResponseProduct:
-    return await Product.create(**product.model_dump())
+    return await Product.create(**product.model_dump(exclude_unset=True))
 
 
 @shop_router.get('/products')
