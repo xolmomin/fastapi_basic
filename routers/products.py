@@ -7,8 +7,15 @@ from starlette.requests import Request
 
 from models import Product
 from schemas import CreateProduct, ResponseProduct
+from utils.orm_ import get_object_or_404
 
 shop_router = APIRouter()
+
+
+@shop_router.get('/products/{_id}', response_model=ResponseProduct)
+async def get_product(_id: int):
+    product = await get_object_or_404(Product, _id)
+    return product
 
 
 @shop_router.post('/products')
