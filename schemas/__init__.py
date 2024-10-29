@@ -1,1 +1,1 @@
-from schemas.products import CreateProduct
+from schemas.products import CreateProduct, ResponseProduct

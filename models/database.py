@@ -34,8 +34,11 @@ class AsyncDatabaseSession:
         return getattr(self._session, name)
 
     def init(self):
-        self._engine = create_async_engine(conf.db.db_url, echo=True)
-        self._session = sessionmaker(self._engine, class_=AsyncSession)()
+        self._engine = create_async_engine(conf.db.db_url)
+        self._session = sessionmaker(self._engine, class_=AsyncSession, expire_on_commit=False)()
+
+    async def refresh(self, model):
+        return await self._session.refresh(model)
 
     async def create_all(self):
         async with self._engine.begin() as conn:
@@ -60,11 +63,16 @@ class AbstractClass:
             print(e)
             await db.rollback()
 
+    @staticmethod
+    async def refresh(obj):
+        await db.refresh(obj)
+
     @classmethod
-    async def create(cls, **kwargs):  # Create
+    async def create(cls, **kwargs):
         object_ = cls(**kwargs)
         db.add(object_)
         await cls.commit()
+        await cls.refresh(object_)
         return object_
 
     @classmethod

@@ -6,15 +6,14 @@ from sqlalchemy.future import select
 from starlette.requests import Request
 
 from models import Product
-from schemas import CreateProduct
+from schemas import CreateProduct, ResponseProduct
 
 shop_router = APIRouter()
 
 
 @shop_router.post('/products')
-async def create_product(product: CreateProduct):
-    await Product.create(**product.model_dump())
-    return {"message": "Product created"}
+async def create_product(product: CreateProduct) -> ResponseProduct:
+    return await Product.create(**product.model_dump())
 
 
 @shop_router.get('/products')
