@@ -10,5 +10,4 @@ Task
 auth
 
 Task
-category crud
-product update, delete
+category crud (create, read(list, detail), update(patch), delete)

@@ -3,7 +3,9 @@ import time
 from fastapi import APIRouter, Query
 from sqlalchemy import func
 from sqlalchemy.future import select
+from starlette import status
 from starlette.requests import Request
+from starlette.responses import Response
 
 from models import Product
 from schemas import CreateProduct, ResponseProduct
@@ -15,6 +17,13 @@ shop_router = APIRouter()
 @shop_router.get('/products/{_id}', response_model=ResponseProduct)
 async def get_product(_id: int):
     return await get_object_or_404(Product, _id)
+
+
+@shop_router.delete('/products/{_id}')
+async def delete_product(_id: int):
+    product = await get_object_or_404(Product, _id)
+    await product.delete()
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @shop_router.post('/products')

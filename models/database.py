@@ -99,10 +99,15 @@ class AbstractClass:
         return (await db.execute(query)).scalar()
 
     @classmethod
-    async def delete(cls, id_):
+    async def delete_by_id(cls, id_):
         query = sqlalchemy_delete(cls).where(cls.id == id_)
         await db.execute(query)
         await cls.commit()
+
+    async def delete(self):
+        query = sqlalchemy_delete(self.__class__).where(self.__class__.id == self.id)
+        await db.execute(query)
+        await self.__class__.commit()
 
     @classmethod
     async def filter(cls, criteria, *, relationship=None, columns=None):
